@@ -27,7 +27,7 @@ if __name__ == '__main__':
     df_orig = df_orig.assign(max_seq_len = lambda x: x['genome_sequence'].apply(len),
                              unique_neuc = lambda x: x['genome_sequence'].apply(lambda y: sorted(list(set(y)))),
                              unique_neuc_num = lambda x: x['unique_neuc'].apply(len),
-                             kmers = lambda x: x['genome_sequence'].apply(lambda y: k_mer_generator(input_sequence=y, k=3)))
+                             kmers = lambda x: x['genome_sequence'].apply(lambda y: k_mer_generator(input_sequence=y, k=3).upper()))
     
     df_orig = df_orig.query("max_seq_len == 80")
     
