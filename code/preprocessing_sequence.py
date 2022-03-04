@@ -35,4 +35,4 @@ if __name__ == '__main__':
     
     df_orig = df_orig.query("max_seq_len == 80")
     
-    df_orig[['kmers', 'species']].to_csv("../data/train_prop.tsv", index=False, sep='\t')
+    df_orig[['kmers', 'label']].to_csv("../data/train_prop.tsv", index=False, sep='\t')
