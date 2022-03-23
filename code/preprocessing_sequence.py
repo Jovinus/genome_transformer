@@ -30,10 +30,15 @@ if __name__ == '__main__':
     df_orig = df_orig.assign(max_seq_len = lambda x: x['genome_sequence'].apply(len),
                              unique_neuc = lambda x: x['genome_sequence'].apply(lambda y: sorted(list(set(y)))),
                              unique_neuc_num = lambda x: x['unique_neuc'].apply(len),
-                             k_mers = lambda x: x['genome_sequence'].apply(lambda y: k_mer_generator(input_sequence=y, k=3).upper()), 
+                             k_mers = lambda x: x['genome_sequence'].apply(lambda y: k_mer_generator(input_sequence=y, k=6).upper()), 
                              label = lambda x: x['species'].map(label_dict)
                              )
     
     df_orig = df_orig.query("max_seq_len == 80")
     
     df_orig[['k_mers', 'label']].to_csv("../data/train_prop.tsv", index=False, sep='\t')
+    
+    df_orig = pd.read_csv("../data/test.csv", usecols=['id', 'genome_sequence'])   
+    df_orig = df_orig.assign(k_mers = lambda x: x['genome_sequence'].apply(lambda y: k_mer_generator(input_sequence=y, k=6).upper()))
+    df_orig[['id', 'k_mers']].to_csv("../data/test_prop.tsv", index=False, sep='\t')
+# %%
